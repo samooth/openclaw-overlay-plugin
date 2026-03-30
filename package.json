@@ -1,7 +1,7 @@
 {
-  "name": "@bsv/openclaw-overlay-plugin",
+  "name": "@samooth/openclaw-overlay-plugin",
   "version": "0.7.22",
-  "description": "Clawdbot BSV Overlay — agent discovery, service marketplace, and micropayments on the BSV blockchain",
+  "description": "Openclaw BSV Overlay — agent discovery, service marketplace, and micropayments on the BSV blockchain",
   "type": "module",
   "files": [
     "index.ts",
@@ -23,33 +23,33 @@
     "postinstall": "node -e \"try{require('better-sqlite3')}catch{console.log('Note: better-sqlite3 requires build tools. If install failed, ensure python3 and a C++ compiler are available.')}\""
   },
   "dependencies": {
-    "@bsv/sdk": "^1.10.3",
-    "@bsv/wallet-toolbox": "^1.7.22",
-    "better-sqlite3": "^11.0.0",
-    "dotenv": "^17.2.3",
-    "knex": "^3.1.0"
+    "@bsv/sdk": "^2.0.13",
+    "@bsv/wallet-toolbox": "^2.1.17",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.3.1",
+    "knex": "^3.2.8"
   },
   "devDependencies": {
-    "@types/node": "^22.19.7",
+    "@types/node": "^25.5.0",
     "@types/ws": "^8.18.1",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
-    "eslint": "^9.39.2",
-    "globals": "^17.3.0",
-    "typescript": "^5.9.3"
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.1.0",
+    "globals": "^17.4.0",
+    "typescript": "^6.0.2"
   },
   "optionalDependencies": {
-    "ws": "^8.19.0"
+    "ws": "^8.20.0"
   },
   "overrides": {
     "tar": "^7.5.7"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bsv-blockchain/openclaw-overlay-plugin.git"
+    "url": "https://github.com/samooth/openclaw-overlay-plugin.git"
   },
   "keywords": [
-    "clawdbot",
+    "openclaw",
     "plugin",
     "bsv",
     "overlay",
@@ -57,15 +57,10 @@
     "micropayments",
     "agent"
   ],
-  "author": "Galt TR",
+  "author": "Tomás Díaz <tomas@bsv.direct>",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
-  },
-  "clawdbot": {
-    "extensions": [
-      "./index.ts"
-    ]
   },
   "openclaw": {
     "hooks": [

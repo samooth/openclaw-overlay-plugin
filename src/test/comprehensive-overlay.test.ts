@@ -22,9 +22,9 @@ import {
   identifyServiceOutputs,
   validateBeef,
   validateBeefAncestry,
-  type ClawdbotIdentityData,
-  type ClawdbotServiceData,
-  type ClawdbotIdentityRevocationData,
+  type OpenclawIdentityData,
+  type OpenclawServiceData,
+  type OpenclawIdentityRevocationData,
 } from './utils/server-logic.js';
 
 // ============================================================================
@@ -225,7 +225,7 @@ console.log('\n=== Identity Payload Tests ===\n');
 test('Identity: valid payload accepted', () => {
   const privKey = PrivateKey.fromRandom();
   const identityKey = privKey.toPublicKey().toString();
-  const payload: ClawdbotIdentityData = {
+  const payload: OpenclawIdentityData = {
     protocol: PROTOCOL_ID,
     type: 'identity',
     identityKey,
@@ -355,7 +355,7 @@ console.log('\n=== Service Payload Tests ===\n');
 test('Service: valid payload accepted', () => {
   const privKey = PrivateKey.fromRandom();
   const identityKey = privKey.toPublicKey().toString();
-  const payload: ClawdbotServiceData = {
+  const payload: OpenclawServiceData = {
     protocol: PROTOCOL_ID,
     type: 'service',
     identityKey,
@@ -433,7 +433,7 @@ console.log('\n=== Revocation Payload Tests ===\n');
 test('Revocation: valid payload accepted', () => {
   const privKey = PrivateKey.fromRandom();
   const identityKey = privKey.toPublicKey().toString();
-  const payload: ClawdbotIdentityRevocationData = {
+  const payload: OpenclawIdentityRevocationData = {
     protocol: PROTOCOL_ID,
     type: 'identity-revocation',
     identityKey,
@@ -472,7 +472,7 @@ test('TopicManager: identity output admitted', async () => {
   const identityKey = privKey.toPublicKey().toString();
   const sourceTx = createSourceTransaction(privKey);
 
-  const payload: ClawdbotIdentityData = {
+  const payload: OpenclawIdentityData = {
     protocol: PROTOCOL_ID,
     type: 'identity',
     identityKey,
@@ -498,7 +498,7 @@ test('TopicManager: revocation output admitted', async () => {
   const identityKey = privKey.toPublicKey().toString();
   const sourceTx = createSourceTransaction(privKey);
 
-  const payload: ClawdbotIdentityRevocationData = {
+  const payload: OpenclawIdentityRevocationData = {
     protocol: PROTOCOL_ID,
     type: 'identity-revocation',
     identityKey,
@@ -519,7 +519,7 @@ test('TopicManager: service output admitted', async () => {
   const identityKey = privKey.toPublicKey().toString();
   const sourceTx = createSourceTransaction(privKey);
 
-  const payload: ClawdbotServiceData = {
+  const payload: OpenclawServiceData = {
     protocol: PROTOCOL_ID,
     type: 'service',
     identityKey,
@@ -579,7 +579,7 @@ test('Chain: two unconfirmed transactions', async () => {
   const grandparentTx = createSourceTransaction(privKey, 100000);
 
   // Parent (first overlay tx)
-  const parentPayload: ClawdbotIdentityData = {
+  const parentPayload: OpenclawIdentityData = {
     protocol: PROTOCOL_ID,
     type: 'identity',
     identityKey,
@@ -592,7 +592,7 @@ test('Chain: two unconfirmed transactions', async () => {
   const parentTx = await createSignedTransaction(privKey, grandparentTx, 0, parentPayload, 99900);
 
   // Child (second overlay tx, spending parent's change)
-  const childPayload: ClawdbotServiceData = {
+  const childPayload: OpenclawServiceData = {
     protocol: PROTOCOL_ID,
     type: 'service',
     identityKey,

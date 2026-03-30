@@ -1,5 +1,5 @@
 /**
- * Server validation logic mirrored from clawdbot-overlay.
+ * Server validation logic mirrored from openclaw-overlay.
  *
  * This module contains the exact same parsing and validation logic
  * used by the server's topic managers, allowing us to validate
@@ -10,13 +10,13 @@
 
 import { Script, OP, Beef, PushDrop, LockingScript } from '@bsv/sdk';
 
-export const PROTOCOL_ID = 'clawdbot-overlay-v1';
+export const PROTOCOL_ID = 'openclaw-overlay-v1';
 
 // ============================================================================
 // Type Definitions (mirrored from server)
 // ============================================================================
 
-export interface ClawdbotIdentityData {
+export interface OpenclawIdentityData {
   protocol: string;
   type: 'identity';
   identityKey: string;
@@ -27,7 +27,7 @@ export interface ClawdbotIdentityData {
   timestamp: string;
 }
 
-export interface ClawdbotIdentityRevocationData {
+export interface OpenclawIdentityRevocationData {
   protocol: string;
   type: 'identity-revocation';
   identityKey: string;
@@ -35,7 +35,7 @@ export interface ClawdbotIdentityRevocationData {
   timestamp: string;
 }
 
-export interface ClawdbotServiceData {
+export interface OpenclawServiceData {
   protocol: string;
   type: 'service';
   identityKey: string;
@@ -49,7 +49,7 @@ export interface ClawdbotServiceData {
   timestamp: string;
 }
 
-export type ClawdbotPayload = ClawdbotIdentityData | ClawdbotIdentityRevocationData | ClawdbotServiceData;
+export type OpenclawPayload = OpenclawIdentityData | OpenclawIdentityRevocationData | OpenclawServiceData;
 
 export interface AdmittanceResult {
   outputsToAdmit: number[];
@@ -152,14 +152,14 @@ export function extractOpReturnPushes(script: Script): Uint8Array[] | null {
  * Parse identity payload from a PushDrop script.
  * The first field contains the JSON payload.
  */
-export function parseIdentityOutput(script: Script | LockingScript): ClawdbotIdentityData | null {
+export function parseIdentityOutput(script: Script | LockingScript): OpenclawIdentityData | null {
   const fields = extractPushDropFields(script);
   if (!fields || fields.length < 1) return null;
 
   try {
     const payload = JSON.parse(
       new TextDecoder().decode(new Uint8Array(fields[0]))
-    ) as ClawdbotIdentityData;
+    ) as OpenclawIdentityData;
 
     // Server validation rules
     if (payload.protocol !== PROTOCOL_ID) return null;
@@ -178,14 +178,14 @@ export function parseIdentityOutput(script: Script | LockingScript): ClawdbotIde
 /**
  * Parse identity revocation payload from a PushDrop script.
  */
-export function parseRevocationOutput(script: Script | LockingScript): ClawdbotIdentityRevocationData | null {
+export function parseRevocationOutput(script: Script | LockingScript): OpenclawIdentityRevocationData | null {
   const fields = extractPushDropFields(script);
   if (!fields || fields.length < 1) return null;
 
   try {
     const payload = JSON.parse(
       new TextDecoder().decode(new Uint8Array(fields[0]))
-    ) as ClawdbotIdentityRevocationData;
+    ) as OpenclawIdentityRevocationData;
 
     if (payload.protocol !== PROTOCOL_ID) return null;
     if (payload.type !== 'identity-revocation') return null;
@@ -201,14 +201,14 @@ export function parseRevocationOutput(script: Script | LockingScript): ClawdbotI
 /**
  * Parse service payload from a PushDrop script.
  */
-export function parseServiceOutput(script: Script | LockingScript): ClawdbotServiceData | null {
+export function parseServiceOutput(script: Script | LockingScript): OpenclawServiceData | null {
   const fields = extractPushDropFields(script);
   if (!fields || fields.length < 1) return null;
 
   try {
     const payload = JSON.parse(
       new TextDecoder().decode(new Uint8Array(fields[0]))
-    ) as ClawdbotServiceData;
+    ) as OpenclawServiceData;
 
     if (payload.protocol !== PROTOCOL_ID) return null;
     if (payload.type !== 'service') return null;

@@ -68,7 +68,7 @@
     ]
   },
   "openclaw": {
-    "extensions": [
+    "hooks": [
       "./index.ts"
     ]
   }

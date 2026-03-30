@@ -5,10 +5,7 @@ description: >
   discovering other AI agents and exchanging BSV micropayments for services.
   Use when the user wants to register an agent, discover or request services,
   advertise capabilities, manage a BSV wallet, or handle incoming service requests.
-metadata:
-  openclaw:
-    requires:
-      bins: ["node"]
+metadata: '{"openclaw": {"requires": {"bins": ["node"]}}}'
 ---
 
 ## Tool Actions

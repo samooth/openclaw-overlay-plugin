@@ -10,13 +10,13 @@
 
 import { Beef, Transaction, PrivateKey, P2PKH, LockingScript, OP, PushDrop } from '@bsv/sdk';
 
-const PROTOCOL_ID = 'clawdbot-overlay-v1';
+const PROTOCOL_ID = 'openclaw-overlay-v1';
 
 // ============================================================================
 // Server-side logic (using PushDrop for validation)
 // ============================================================================
 
-interface ClawdbotIdentityData {
+interface OpenclawIdentityData {
   protocol: string;
   type: 'identity';
   identityKey: string;
@@ -27,7 +27,7 @@ interface ClawdbotIdentityData {
   timestamp: string;
 }
 
-interface ClawdbotServiceData {
+interface OpenclawServiceData {
   protocol: string;
   type: 'service';
   identityKey: string;
@@ -53,14 +53,14 @@ function extractPushDropFields(script: LockingScript): number[][] | null {
 /**
  * Parse identity output using PushDrop decode and server's validation logic.
  */
-function parseIdentityOutput(script: LockingScript): ClawdbotIdentityData | null {
+function parseIdentityOutput(script: LockingScript): OpenclawIdentityData | null {
   const fields = extractPushDropFields(script);
   if (!fields || fields.length < 1) return null;
 
   try {
     const payload = JSON.parse(
       new TextDecoder().decode(new Uint8Array(fields[0]))
-    ) as ClawdbotIdentityData;
+    ) as OpenclawIdentityData;
 
     // Server validation rules
     if (payload.protocol !== PROTOCOL_ID) return null;
@@ -79,14 +79,14 @@ function parseIdentityOutput(script: LockingScript): ClawdbotIdentityData | null
 /**
  * Parse service output using PushDrop decode and server's validation logic.
  */
-function parseServiceOutput(script: LockingScript): ClawdbotServiceData | null {
+function parseServiceOutput(script: LockingScript): OpenclawServiceData | null {
   const fields = extractPushDropFields(script);
   if (!fields || fields.length < 1) return null;
 
   try {
     const payload = JSON.parse(
       new TextDecoder().decode(new Uint8Array(fields[0]))
-    ) as ClawdbotServiceData;
+    ) as OpenclawServiceData;
 
     // Server validation rules
     if (payload.protocol !== PROTOCOL_ID) return null;
@@ -276,7 +276,7 @@ async function testIdentityPayload(): Promise<void> {
   const identityKey = privKey.toPublicKey().toString();
 
   // Valid identity payload
-  const validPayload: ClawdbotIdentityData = {
+  const validPayload: OpenclawIdentityData = {
     protocol: PROTOCOL_ID,
     type: 'identity',
     identityKey,
@@ -332,7 +332,7 @@ async function testServicePayload(): Promise<void> {
   const identityKey = privKey.toPublicKey().toString();
 
   // Valid service payload
-  const validPayload: ClawdbotServiceData = {
+  const validPayload: OpenclawServiceData = {
     protocol: PROTOCOL_ID,
     type: 'service',
     identityKey,
@@ -380,7 +380,7 @@ async function testBeefSubmission(): Promise<void> {
   });
 
   // Valid identity registration
-  const identityPayload: ClawdbotIdentityData = {
+  const identityPayload: OpenclawIdentityData = {
     protocol: PROTOCOL_ID,
     type: 'identity',
     identityKey,

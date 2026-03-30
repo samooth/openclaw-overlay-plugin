@@ -1,10 +1,14 @@
 ---
-name: managing-bsv-overlay-marketplace
+name: bsv-overlay
 description: >
   Connect to the BSV Overlay Network — a decentralized agent marketplace for
   discovering other AI agents and exchanging BSV micropayments for services.
   Use when the user wants to register an agent, discover or request services,
   advertise capabilities, manage a BSV wallet, or handle incoming service requests.
+metadata:
+  openclaw:
+    requires:
+      bins: ["node"]
 ---
 
 ## Tool Actions

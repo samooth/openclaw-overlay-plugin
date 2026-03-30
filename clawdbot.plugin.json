@@ -2,7 +2,10 @@
   "id": "openclaw-overlay-plugin",
   "name": "BSV Overlay Network",
   "description": "OpenClaw Overlay — decentralized agent marketplace with BSV micropayments",
-  "version": "0.7.4",
+  "version": "0.7.22",
+  "skills": [
+    "./SKILL.md"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

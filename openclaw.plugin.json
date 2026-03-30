@@ -25,7 +25,7 @@
       },
       "walletDir": {
         "type": "string",
-        "description": "BSV wallet storage directory (defaults to ~/.clawdbot/bsv-wallet)"
+        "description": "BSV wallet storage directory (defaults to ~/.openclaw/bsv-wallet)"
       },
       "maxAutoPaySats": {
         "type": "number",
@@ -76,7 +76,7 @@
     },
     "walletDir": {
       "label": "Wallet Directory",
-      "placeholder": "~/.clawdbot/bsv-wallet",
+      "placeholder": "~/.openclaw/bsv-wallet",
       "advanced": true
     },
     "maxAutoPaySats": {

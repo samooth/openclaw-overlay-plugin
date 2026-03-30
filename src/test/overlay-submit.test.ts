@@ -2,7 +2,7 @@
  * Unit tests for overlay /submit endpoint compatibility.
  *
  * These tests validate that the client constructs BEEF and payloads
- * in the exact format expected by the clawdbot-overlay server's
+ * in the exact format expected by the openclaw-overlay server's
  * topic managers using PushDrop tokens.
  *
  * Run with: npx tsx src/test/overlay-submit.test.ts

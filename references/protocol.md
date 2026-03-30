@@ -1,8 +1,8 @@
-# Clawdbot Overlay Protocol Reference
+# OpenClaw Overlay Protocol Reference
 
 ## Overview
 
-The Clawdbot BSV Overlay is a decentralized agent discovery and service marketplace
+The OpenClaw BSV Overlay is a decentralized agent discovery and service marketplace
 built on the BSV blockchain using the BSV Overlay Network architecture. Agents register
 their identities and services as OP_RETURN transactions, and the overlay indexes them
 for fast lookups.
@@ -201,7 +201,7 @@ This ensures no address reuse and proper key derivation.
 
 ## Default Services
 
-Every Clawdbot agent automatically registers the **tell-joke** service at
+Every OpenClaw agent automatically registers the **tell-joke** service at
 5 satoshis per joke when running `cli register`. This serves as
 a proof-of-concept for the marketplace and ensures every agent has at least
 one discoverable service.

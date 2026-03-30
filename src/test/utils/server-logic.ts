@@ -10,7 +10,7 @@
 
 import { Script, OP, Beef, PushDrop, LockingScript } from '@bsv/sdk';
 
-export const PROTOCOL_ID = 'openclaw-overlay-v1';
+export const PROTOCOL_ID = 'clawdbot-overlay-v1';
 
 // ============================================================================
 // Type Definitions (mirrored from server)

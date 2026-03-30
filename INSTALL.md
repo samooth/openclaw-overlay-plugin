@@ -14,7 +14,7 @@ openclaw plugins install /path/to/openclaw-overlay-plugin
 ```
 
 ### Remote Installation (Recommended)
-Install the latest version directly from the official repository or your fork:
+Install the latest version directly from a GitHub repository using the `owner/repo` format:
 ```bash
 # Official repository
 openclaw plugins install bsv-blockchain/openclaw-overlay-plugin
@@ -22,6 +22,8 @@ openclaw plugins install bsv-blockchain/openclaw-overlay-plugin
 # Your fork (replace with your username)
 openclaw plugins install samooth/openclaw-overlay-plugin
 ```
+
+**Note:** If you see "unsupported npm spec", ensure you are **NOT** using the `github:` prefix or `git://` protocol. OpenClaw expects either a package name from the registry (npm/ClawHub), a local path, or a plain `owner/repo` GitHub spec.
 
 ## 2. Verification
 

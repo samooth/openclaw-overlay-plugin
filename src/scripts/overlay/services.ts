@@ -1,7 +1,7 @@
 /**
  * Overlay service commands: services, advertise, remove, readvertise.
  * 
- * Service payloads match the clawdbot-overlay server schema:
+ * Service payloads match the openclaw-overlay server schema:
  * - protocol: "clawdbot-overlay-v1"
  * - type: "service"
  * - identityKey: provider's compressed public key
@@ -71,7 +71,7 @@ export async function cmdAdvertise(
     registeredAt: new Date().toISOString(),
   };
 
-  // Publish on-chain (matches clawdbot-overlay server schema)
+  // Publish on-chain (matches openclaw-overlay server schema)
   const servicePayload = {
     protocol: PROTOCOL_ID,
     type: 'service' as const,
@@ -165,7 +165,7 @@ export async function cmdReadvertise(
   if (description) existing.description = description;
   existing.registeredAt = new Date().toISOString();
 
-  // Publish update on-chain (matches clawdbot-overlay server schema)
+  // Publish update on-chain (matches openclaw-overlay server schema)
   const servicePayload = {
     protocol: PROTOCOL_ID,
     type: 'service' as const,

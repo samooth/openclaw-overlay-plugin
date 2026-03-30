@@ -247,14 +247,14 @@ _Reply via overlay: \`cli send ${replyKey} ping "your reply"\`_`;
   let deliveryError: string | null = null;
 
   try {
-    const hookHost = process.env.CLAWDBOT_HOST || process.env.OPENCLAW_HOST || '127.0.0.1';
+    const hookHost = process.env.OPENCLAW_HOST || process.env.OPENCLAW_HOST || '127.0.0.1';
     const hookUrl = `http://${hookHost}:${hookPort}/hooks/agent`;
     const hookResp = await fetchWithTimeout(hookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${hookToken}`,
-        'x-clawdbot-token': hookToken,
+        'x-openclaw-token': hookToken,
       },
       body: JSON.stringify({
         message: formattedMessage,

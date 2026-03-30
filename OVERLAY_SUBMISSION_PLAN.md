@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document outlines a comprehensive plan to fix and properly test the overlay submission functionality in the openclaw-overlay-plugin. The goal is to ensure all client operations correctly interact with the clawdbot-overlay server following BSV overlay standards.
+This document outlines a comprehensive plan to fix and properly test the overlay submission functionality in the openclaw-overlay-plugin. The goal is to ensure all client operations correctly interact with the openclaw-overlay server following BSV overlay standards.
 
 ## Research Findings
 

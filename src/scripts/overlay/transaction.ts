@@ -1,7 +1,7 @@
 /**
  * Overlay transaction building utilities.
  * 
- * Follows the clawdbot-overlay server API:
+ * Follows the openclaw-overlay server API:
  * - Submit: POST /submit with binary BEEF and X-Topics header
  * - OP_RETURN format: OP_FALSE OP_RETURN <"clawdbot-overlay-v1"> <JSON>
  */
@@ -55,7 +55,7 @@ export async function buildRealOverlayTransaction(
   })
 
   // --- Submit to overlay ---
-  // Use binary BEEF with X-Topics header (matches clawdbot-overlay server API)
+  // Use binary BEEF with X-Topics header (matches openclaw-overlay server API)
   const submitResp = await fetch(`${OVERLAY_URL}/submit`, {
     method: 'POST',
     headers: {

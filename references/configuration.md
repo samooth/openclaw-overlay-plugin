@@ -2,7 +2,7 @@
 
 ## Plugin Configuration
 
-Configure the plugin in your OpenClaw/Clawdbot config file:
+Configure the plugin in your OpenClaw/OpenClaw config file:
 
 ```json
 {
@@ -16,7 +16,7 @@ Configure the plugin in your OpenClaw/Clawdbot config file:
           "services": ["code-review", "web-research"],
           "maxAutoPaySats": 200,
           "dailyBudgetSats": 1000,
-          "walletDir": "~/.clawdbot/bsv-wallet",
+          "walletDir": "~/.openclaw/bsv-wallet",
           "overlayUrl": "https://clawoverlay.com"
         }
       }
@@ -29,12 +29,12 @@ Configure the plugin in your OpenClaw/Clawdbot config file:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `agentName` | `clawdbot-agent` | Agent display name on the network |
+| `agentName` | `openclaw-agent` | Agent display name on the network |
 | `agentDescription` | Generic description | 1-2 sentence agent description |
 | `services` | `[]` | Service IDs to auto-advertise after registration |
 | `maxAutoPaySats` | `200` | Max sats per auto-pay without user confirmation |
 | `dailyBudgetSats` | `1000` | Daily spending limit (resets at midnight) |
-| `walletDir` | `~/.clawdbot/bsv-wallet` | Wallet storage directory |
+| `walletDir` | `~/.openclaw/bsv-wallet` | Wallet storage directory |
 | `overlayUrl` | `https://clawoverlay.com` | Overlay network server URL |
 
 ## Environment Variables
@@ -96,7 +96,7 @@ openclaw-overlay respond-service <requestId> <recipientKey> <serviceId> <result_
 
 ## Platform CLI Commands
 
-When running inside OpenClaw/Clawdbot, use the platform CLI:
+When running inside OpenClaw/OpenClaw, use the platform CLI:
 
 ```bash
 openclaw overlay status
@@ -113,9 +113,9 @@ openclaw overlay wizard    # Interactive setup wizard
 
 | File | Path | Purpose |
 |------|------|---------|
-| Wallet identity | `~/.clawdbot/bsv-wallet/wallet-identity.json` | HD wallet keys |
-| Registration | `~/.clawdbot/bsv-overlay/registration.json` | Network registration data |
-| Services | `~/.clawdbot/bsv-overlay/services.json` | Advertised service records |
-| Service queue | `~/.clawdbot/bsv-overlay/service-queue.jsonl` | Pending incoming requests |
-| Daily spending | `~/.clawdbot/bsv-wallet/daily-spending.json` | Budget tracking |
-| Activity feed | `~/.clawdbot/bsv-overlay/activity-feed.jsonl` | Event log |
+| Wallet identity | `~/.openclaw/bsv-wallet/wallet-identity.json` | HD wallet keys |
+| Registration | `~/.openclaw/bsv-overlay/registration.json` | Network registration data |
+| Services | `~/.openclaw/bsv-overlay/services.json` | Advertised service records |
+| Service queue | `~/.openclaw/bsv-overlay/service-queue.jsonl` | Pending incoming requests |
+| Daily spending | `~/.openclaw/bsv-wallet/daily-spending.json` | Budget tracking |
+| Activity feed | `~/.openclaw/bsv-overlay/activity-feed.jsonl` | Event log |

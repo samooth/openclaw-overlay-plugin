@@ -58,7 +58,7 @@ export async function cmdRegister(): Promise<never> {
   }
 
   // Create identity record on-chain
-  // This payload format matches the clawdbot-overlay server's expected schema
+  // This payload format matches the openclaw-overlay server's expected schema
   const identityPayload = {
     protocol: PROTOCOL_ID,
     type: 'identity' as const,
@@ -174,7 +174,7 @@ export async function cmdUnregister(): Promise<never> {
   const txid = response.txid as string;
 
   // --- Submit to overlay ---
-  // Use binary BEEF with X-Topics header (matches clawdbot-overlay server API)
+  // Use binary BEEF with X-Topics header (matches openclaw-overlay server API)
   const submitResp = await fetch(`${OVERLAY_URL}/submit`, {
     method: 'POST',
     headers: {

@@ -7,7 +7,7 @@ import os from 'node:os';
 import fs from 'node:fs';
 
 // Auto-load .env from overlay state dir if it exists
-const overlayEnvPath = path.join(os.homedir(), '.clawdbot', 'bsv-overlay', '.env');
+const overlayEnvPath = path.join(os.homedir(), '.openclaw', 'bsv-overlay', '.env');
 try {
   if (fs.existsSync(overlayEnvPath)) {
     for (const line of fs.readFileSync(overlayEnvPath, 'utf-8').split('\n')) {
@@ -23,7 +23,7 @@ try {
 
 /** Wallet storage directory */
 export const WALLET_DIR = process.env.BSV_WALLET_DIR
-  || path.join(os.homedir(), '.clawdbot', 'bsv-wallet');
+  || path.join(os.homedir(), '.openclaw', 'bsv-wallet');
 
 /** Network to use (mainnet or testnet) */
 export const NETWORK: 'mainnet' | 'testnet' =
@@ -33,7 +33,7 @@ export const NETWORK: 'mainnet' | 'testnet' =
 export const OVERLAY_URL = process.env.OVERLAY_URL || 'https://clawoverlay.com';
 
 /** Agent display name on the overlay network */
-export const AGENT_NAME = process.env.AGENT_NAME || 'clawdbot-agent';
+export const AGENT_NAME = process.env.AGENT_NAME || 'openclaw-agent';
 
 /** Agent description for the overlay identity */
 export const AGENT_DESCRIPTION = process.env.AGENT_DESCRIPTION ||
@@ -43,10 +43,10 @@ export const AGENT_DESCRIPTION = process.env.AGENT_DESCRIPTION ||
 export const WOC_API_KEY = process.env.WOC_API_KEY || '';
 
 /** Overlay state directory for registration, services, etc. */
-export const OVERLAY_STATE_DIR = path.join(os.homedir(), '.clawdbot', 'bsv-overlay');
+export const OVERLAY_STATE_DIR = path.join(os.homedir(), '.openclaw', 'bsv-overlay');
 
 /** Protocol identifier for overlay transactions */
-export const PROTOCOL_ID = 'clawdbot overlay v1';
+export const PROTOCOL_ID = 'openclaw overlay v1';
 
 /** Topic managers for overlay submissions */
 export const TOPICS = {

@@ -51,7 +51,7 @@ function loadDailySpending(walletDir: string): DailySpending {
 }
 
 function writeActivityEvent(event) {
-  const alertDir = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay');
+  const alertDir = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay');
   try {
     fs.mkdirSync(alertDir, { recursive: true });
     fs.appendFileSync(path.join(alertDir, 'activity-feed.jsonl'), JSON.stringify({ ...event, ts: Date.now() }) + '\n');
@@ -114,7 +114,7 @@ async function startAutoImport(env, cliPath, logger) {
               
               // Clear onboarding flag since wallet is now funded
               try {
-                const onboardingSentFile = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'onboarding-sent.flag');
+                const onboardingSentFile = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'onboarding-sent.flag');
                 if (fs.existsSync(onboardingSentFile)) {
                   fs.unlinkSync(onboardingSentFile);
                 }
@@ -125,7 +125,7 @@ async function startAutoImport(env, cliPath, logger) {
 
               // Check if registered, auto-register if not
               try {
-                const regPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'registration.json');
+                const regPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'registration.json');
                 if (!fs.existsSync(regPath)) {
                   logger?.info?.('[bsv-overlay] Not yet registered — auto-registering...');
                   const regResult = await execFileAsync('node', [cliPath, 'register'], { env, timeout: 60000 });
@@ -168,7 +168,7 @@ async function autoAdvertiseServices(env, cliPath, logger) {
     // Read config to get services list
     const configPaths = [
       path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
-      path.join(process.env.HOME || '', '.clawdbot', 'clawdbot.json'),
+      path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
     ];
     
     let servicesToAdvertise: string[] = [];
@@ -244,12 +244,12 @@ async function autoAdvertiseServices(env, cliPath, logger) {
   }
 }
 
-// Auto-enable hooks in Clawdbot config if not already configured.
+// Auto-enable hooks in OpenClaw config if not already configured.
 // Returns true if config was modified (gateway restart needed to activate).
 function autoEnableHooks(api: any): boolean {
   try {
     const configPaths = [
-      path.join(process.env.HOME || '', '.clawdbot', 'clawdbot.json'),
+      path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
       path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
     ];
 
@@ -289,19 +289,19 @@ function autoEnableHooks(api: any): boolean {
 
 // Discover the gateway HTTP port from environment
 function getGatewayPort(): string {
-  return process.env.CLAWDBOT_GATEWAY_PORT || process.env.OPENCLAW_GATEWAY_PORT || '18789';
+  return process.env.OPENCLAW_GATEWAY_PORT || process.env.OPENCLAW_GATEWAY_PORT || '18789';
 }
 
 // Read tokens from env vars or config files.
 // Returns { hooksToken, gatewayToken } — hooksToken is preferred for HTTP wake.
 function getTokens(): { hooksToken: string | null; gatewayToken: string | null } {
-  let hooksToken: string | null = process.env.CLAWDBOT_HOOKS_TOKEN || process.env.OPENCLAW_HOOKS_TOKEN || null;
-  let gatewayToken: string | null = process.env.CLAWDBOT_GATEWAY_TOKEN || process.env.OPENCLAW_GATEWAY_TOKEN || null;
+  let hooksToken: string | null = process.env.OPENCLAW_HOOKS_TOKEN || process.env.OPENCLAW_HOOKS_TOKEN || null;
+  let gatewayToken: string | null = process.env.OPENCLAW_GATEWAY_TOKEN || process.env.OPENCLAW_GATEWAY_TOKEN || null;
 
   try {
     const configPaths = [
       path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
-      path.join(process.env.HOME || '', '.clawdbot', 'clawdbot.json'),
+      path.join(process.env.HOME || '', '.openclaw', 'openclaw.json'),
     ];
     for (const p of configPaths) {
       if (!fs.existsSync(p)) continue;
@@ -336,7 +336,7 @@ function wakeAgent(text: string, logger?: any, opts?: { sessionKey?: string }) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${httpToken}`,
-      'x-clawdbot-token': httpToken,
+      'x-openclaw-token': httpToken,
     },
     body: JSON.stringify({
       message: text,
@@ -435,7 +435,7 @@ function startBackgroundService(env, cliPath, logger) {
           const event = JSON.parse(line);
           logger?.debug?.(`[bsv-overlay] ${event.event || event.type || 'message'}:`, JSON.stringify(event).slice(0, 200));
           
-          const alertDir = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay');
+          const alertDir = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay');
           fs.mkdirSync(alertDir, { recursive: true });
           
           // Detect queued-for-agent events — invoke agent via /hooks/agent
@@ -717,7 +717,7 @@ export default function register(api) {
         const cliPath = path.join(__dirname, 'dist', 'cli.js');
         
         // Check registration status
-        const regPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'registration.json');
+        const regPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'registration.json');
         const isRegistered = fs.existsSync(regPath);
         
         // Get balance
@@ -906,7 +906,7 @@ export default function register(api) {
           console.log('Step 1: Agent Identity\n');
           console.log('Your agent identity is how other agents will see you on the network.\n');
 
-          const currentName = config?.agentName || env.AGENT_NAME || 'clawdbot-agent';
+          const currentName = config?.agentName || env.AGENT_NAME || 'openclaw-agent';
           const agentName = await prompt(`Agent name [${currentName}]: `) || currentName;
 
           const currentDesc = config?.agentDescription || env.AGENT_DESCRIPTION || 'AI agent on the OpenClaw Overlay Network.';
@@ -1037,7 +1037,7 @@ export default function register(api) {
   (async () => {
     try {
       const config = pluginConfig;
-      const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.clawdbot', 'bsv-wallet');
+      const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.openclaw', 'bsv-wallet');
       const identityFile = path.join(walletDir, 'wallet-identity.json');
       const env = buildEnvironment(config || {});
       const cliPath = path.join(__dirname, 'dist', 'cli.js');
@@ -1064,7 +1064,7 @@ export default function register(api) {
       } catch {}
 
       // Step 3: Check registration and balance state
-      const regPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'registration.json');
+      const regPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'registration.json');
       const isRegistered = fs.existsSync(regPath);
       let balance = 0;
       try {
@@ -1077,7 +1077,7 @@ export default function register(api) {
       if (!isRegistered && balance >= 1000) {
         // Clear onboarding flag since wallet is now funded
         try {
-          const onboardingSentFile = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'onboarding-sent.flag');
+          const onboardingSentFile = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'onboarding-sent.flag');
           if (fs.existsSync(onboardingSentFile)) {
             fs.unlinkSync(onboardingSentFile);
           }
@@ -1103,7 +1103,7 @@ export default function register(api) {
 
       // Step 6: Not registered + not funded → send onboarding message (only once per wallet)
       // This runs on first startup after plugin install (wallet just created or exists but empty)
-      const onboardingSentFile = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'onboarding-sent.flag');
+      const onboardingSentFile = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'onboarding-sent.flag');
 
       // Check if we already sent onboarding message for this wallet
       let alreadySent = false;
@@ -1232,7 +1232,7 @@ async function executeOverlayAction(params, config, api) {
 
 async function handleServiceRequest(params, env, cliPath, config, api) {
   const { service, identityKey: targetKey, input, maxPrice } = params;
-  const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.clawdbot', 'bsv-wallet');
+  const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.openclaw', 'bsv-wallet');
   
   if (!service) {
     throw new Error("Service is required for request action");
@@ -1352,7 +1352,7 @@ async function handleUnregister(params, env, cliPath) {
   const { confirmToken } = params;
 
   // Load current registration to show what will be deleted
-  const regPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'registration.json');
+  const regPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'registration.json');
   let registration: any = null;
   try {
     if (fs.existsSync(regPath)) {
@@ -1555,7 +1555,7 @@ async function handleStatus(env, cliPath) {
 
 async function handleDirectPay(params, env, cliPath, config) {
   const { identityKey, sats, description } = params;
-  const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.clawdbot', 'bsv-wallet');
+  const walletDir = config?.walletDir || path.join(process.env.HOME || '', '.openclaw', 'bsv-wallet');
   
   if (!identityKey || !sats) {
     throw new Error("identityKey and sats are required for pay action");
@@ -1630,7 +1630,7 @@ async function handleImport(params, env, cliPath) {
   }
 
   // Check if we should auto-register after successful import
-  const regPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'registration.json');
+  const regPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'registration.json');
   const isRegistered = fs.existsSync(regPath);
   
   if (!isRegistered && output.data?.balance >= 1000) {
@@ -1886,14 +1886,14 @@ async function handlePendingRequests(env, cliPath) {
   if (!output.success) throw new Error(`Queue check failed: ${output.error}`);
 
   // Clear the alert file since we're checking now
-  const alertPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'pending-alert.jsonl');
+  const alertPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'pending-alert.jsonl');
   try { if (fs.existsSync(alertPath)) fs.unlinkSync(alertPath); } catch {}
 
   return output.data;
 }
 
 function handleActivity() {
-  const feedPath = path.join(process.env.HOME || '', '.clawdbot', 'bsv-overlay', 'activity-feed.jsonl');
+  const feedPath = path.join(process.env.HOME || '', '.openclaw', 'bsv-overlay', 'activity-feed.jsonl');
   if (!fs.existsSync(feedPath)) return { events: [], count: 0 };
   
   const lines = fs.readFileSync(feedPath, 'utf-8').trim().split('\n').filter(Boolean);
@@ -1942,7 +1942,7 @@ function buildEnvironment(config) {
   if (config.agentName) {
     env.AGENT_NAME = config.agentName;
   } else if (!env.AGENT_NAME) {
-    env.AGENT_NAME = 'clawdbot-agent';
+    env.AGENT_NAME = 'openclaw-agent';
   }
   if (config.agentDescription) {
     env.AGENT_DESCRIPTION = config.agentDescription;

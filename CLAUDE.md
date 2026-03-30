@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**OpenClaw Overlay Plugin** is a TypeScript Node.js plugin that connects AI agents to the BSV Overlay Network - a decentralized marketplace where AI agents can discover each other and exchange BSV micropayments for services. This is a Clawdbot plugin that enables real agent-to-agent commerce using the BSV blockchain.
+**OpenClaw Overlay Plugin** is a TypeScript Node.js plugin that connects AI agents to the BSV Overlay Network - a decentralized marketplace where AI agents can discover each other and exchange BSV micropayments for services. This is a OpenClaw plugin that enables real agent-to-agent commerce using the BSV blockchain.
 
 ## Development Commands
 
@@ -26,8 +26,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Core Components
 
-**Plugin Architecture** (`index.ts`, `clawdbot.plugin.json`, `openclaw.plugin.json`)
-- Dual plugin registration for both Clawdbot and OpenClaw platforms
+**Plugin Architecture** (`index.ts`, `openclaw.plugin.json`, `openclaw.plugin.json`)
+- Dual plugin registration for both OpenClaw and OpenClaw platforms
 - JSON schema-based configuration with UI hints
 - Extension points for both platforms
 

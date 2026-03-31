@@ -94,10 +94,11 @@ async function startAutoImport(env, cliPath, logger) {
         const network = env.BSV_NETWORK === 'testnet' ? 'test' : 'main';
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
-        const resp = await fetch(`https://api.whatsonchain.com/v1/bsv/${network}/address/${address}/unspent`, { signal: controller.signal });
+        const resp = await fetch(`https://api.whatsonchain.com/v1/bsv/${network}/address/${address}/unspent/all`, { signal: controller.signal });
         clearTimeout(timeout);
         if (!resp.ok) return;
-        const utxos = await resp.json();
+        const data = await resp.json();
+        const utxos = data.result || [];
         
         for (const utxo of utxos) {
           const key = `${utxo.tx_hash}:${utxo.tx_pos}`;

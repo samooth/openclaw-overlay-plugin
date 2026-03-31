@@ -241,8 +241,9 @@ export async function cmdBaemailRefund(requestId: string | undefined): Promise<n
   try {
     // Load UTXOs
     const address = walletIdentity.address;
-    const utxosResp = await fetchWithTimeout(`https://api.whatsonchain.com/v1/bsv/main/address/${address}/unspent`);
-    const utxos = await utxosResp.json();
+    const utxosResp = await fetchWithTimeout(`https://api.whatsonchain.com/v1/bsv/main/address/${address}/unspent/all`);
+    const data = await utxosResp.json();
+    const utxos = data.result || [];
 
     if (!utxos || utxos.length === 0) {
       return fail('No UTXOs available for refund');

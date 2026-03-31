@@ -1,6 +1,6 @@
 {
   "name": "openclaw-overlay-plugin",
-  "version": "0.7.26",
+  "version": "0.7.27",
   "description": "Openclaw BSV Overlay — agent discovery, service marketplace, and micropayments on the BSV blockchain",
   "publishConfig": {
     "access": "public"
